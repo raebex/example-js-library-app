@@ -1,18 +1,51 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <code id="codeSnippet">
+      <pre>
+        setTimeout(function() {
+          console.log("First task done!");
+          setTimeout(function() {
+            console.log("Second task done!");
+            setTimeout(function() {
+              console.log("Third task done!");
+            }, 2000);
+          }, 2000);
+        }, 2000);
+      </pre>
+    </code>
+    <button id="btn" data-clipboard-target="#codeSnippet">Copy to clipboard</button>
+
+    <p>{{ message }}</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import ClipboardJS from "clipboard";
 
 export default {
-  name: "Home",
-  components: {
-    HelloWorld,
+  data: function() {
+    return {
+      message: "",
+    };
   },
+  mounted: function() {
+    var clipboard = new ClipboardJS("#btn");
+    var self = this;
+
+    clipboard.on("success", function(e) {
+      console.info("Action:", e.action);
+      console.info("Text:", e.text);
+      console.info("Trigger:", e.trigger);
+      self.message = "Successfully copied!";
+
+      e.clearSelection();
+    });
+
+    clipboard.on("error", function(e) {
+      console.error("Action:", e.action);
+      console.error("Trigger:", e.trigger);
+    });
+  },
+  methods: {},
 };
 </script>
