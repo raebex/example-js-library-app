@@ -1,23 +1,32 @@
 <template>
   <div class="home">
-    <code id="codeSnippet">
-      <pre>
+    <highlightjs
+      id="codeSnippet"
+      language="javascript"
+      code="
+      setTimeout(function() {
+        console.log('First task done!');
         setTimeout(function() {
-          console.log("First task done!");
+          console.log('Second task done!');
           setTimeout(function() {
-            console.log("Second task done!");
-            setTimeout(function() {
-              console.log("Third task done!");
-            }, 2000);
+            console.log('Third task done!');
           }, 2000);
         }, 2000);
-      </pre>
-    </code>
+      }, 2000);
+      "
+    />
+
     <button id="btn" data-clipboard-target="#codeSnippet">Copy to clipboard</button>
 
     <p>{{ message }}</p>
   </div>
 </template>
+
+<style scoped>
+#codeSnippet {
+  text-align: left;
+}
+</style>
 
 <script>
 import ClipboardJS from "clipboard";
